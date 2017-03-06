@@ -1,0 +1,28 @@
+body {
+  background-color: #6ccdca;
+  margin: 0 auto;
+}
+
+#flappybird {
+  width: 92px;
+  overflow: hidden;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}
+
+#sprite {
+position: relative;
+}
+
+/*pipes.div {
+  position: absolute;
+}*/
+
+#pipe{
+  /*background: green;*/
+  height: 100px;
+  width: 90px;
+  position: absolute;
+  left: 600px;
+}

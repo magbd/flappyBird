@@ -4,6 +4,13 @@ body {
   overflow: hidden;
 }
 
+#lifes {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9;
+}
+
 #flappybird {
   width: 92px;
   overflow: hidden;

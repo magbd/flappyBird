@@ -83,6 +83,9 @@ var pipeDown = document.getElementById('down');
 var pipeWidth = pipe.offsetWidth;
 // alert ('pipeWidth vaut : ' + pipeWidth);
 
+// var touch = false;
+
+
 function heightPipe(){
   //Pourcentage de mon élément qui fera obstacle
   var obstacle = 70;
@@ -129,14 +132,22 @@ function touchPipe(){
   //que la gauche de bird est plus petit que la droite de pipe => n'a pas encore dépassé
   if (positionBirdRight > positionPipeLeft && positionBirdLeft < positionPipeRight) {
     //je vérifie si je touche en haut ou en bas
-    if (positionBirdDown > positionPipeDown) {
+    // si le pipe est déjà rouge donc touché, on ne décrémente pas de points de vie
+    if (positionBirdDown > positionPipeDown && pipeDown.style.backgroundColor != 'red') {
       pipeDown.style.backgroundColor = 'red';
+
+       lifes --; // décrémente de 1 les points de vie
+       affLifes(); // affiche le compteur de points de vie à jour
     }
 
-    if (positionBirdUp < positionPipeUp){
+    if (positionBirdUp < positionPipeUp && pipeUp.style.backgroundColor != 'red' ){
       pipeUp.style.backgroundColor = 'red';
+
+       lifes --; // décrémente de 1 les points de vie
+       affLifes(); // affiche le compteur de points de vie à jour
     }
   }
+  affLifes();
 
 }
 
@@ -161,7 +172,25 @@ function animatePipe(){
     // je reset la couleur des pipes en vert
     pipeUp.style.backgroundColor = 'green';
     pipeDown.style.backgroundColor = 'green';
+    touch = false;
   }
+}
+
+//---------------------------------------
+//Lifes
+//---------------------------------------
+
+var lifes = 3;
+var affCompteurLifes = document.getElementById('lifes');
+
+// lancement et modification des valeurs dans function touchPipe()
+function affLifes(){
+  // touchPipe();
+affCompteurLifes.innerHTML = lifes;
+
+// if (lifes == 0) {
+//   alert('game over !');
+// }
 }
 
 //---------------------------------------
@@ -172,6 +201,7 @@ function animateScene () {
   animateSprite();
   animateFly();
   touchPipe();
+  // affLifes();
   animatePipe();
 }
 

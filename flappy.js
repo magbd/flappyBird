@@ -80,7 +80,7 @@ function animateFly () {
 var pipe = document.getElementById('pipe');
 var pipeUp = document.getElementById('up');
 var pipeDown = document.getElementById('down');
-// var pipeWidth = pipe.offsetWidth;
+var pipeWidth = pipe.offsetWidth;
 // alert ('pipeWidth vaut : ' + pipeWidth);
 
 function heightPipe(){
@@ -114,24 +114,55 @@ function touchPipe(){
   // récupère ttes les positions de pipe
   var positionPipeUp = pipeUp.offsetHeight;
   var positionPipeDown = pipeDown.offsetTop;
-
-
+  var positionPipeRight = pipe.offsetLeft + pipe.offsetWidth;
+  var positionPipeLeft = pipe.offsetLeft;
 
   //récupère ttes les positions de bird
   var positionBirdUp = flappybird.offsetTop;
   var positionBirdDown = flappybird.offsetHeight + flappybird.offsetTop;
+  var positionBirdRight = flappybird.offsetLeft + flappybird.offsetWidth;
+  var positionBirdLeft = flappybird.offsetLeft;
 
-if (positionBirdDown > positionPipeDown) {
-    pipeDown.style.backgroundColor = 'red';
-  }
+  //si sur l'axe horizontal,
+  //la droite de bird dépasse la gauche de pipe => arrive à la rencontre de pipe
+  //ET
+  //que la gauche de bird est plus petit que la droite de pipe => n'a pas encore dépassé
+  if (positionBirdRight > positionPipeLeft && positionBirdLeft < positionPipeRight) {
+    //je vérifie si je touche en haut ou en bas
+    if (positionBirdDown > positionPipeDown) {
+      pipeDown.style.backgroundColor = 'red';
+    }
 
-
-  if (positionBirdUp < positionPipeUp){
-    pipeUp.style.backgroundColor = 'red';
+    if (positionBirdUp < positionPipeUp){
+      pipeUp.style.backgroundColor = 'red';
+    }
   }
 
 }
 
+
+//---------------------------------------
+//Animation Pipes
+//---------------------------------------
+
+function animatePipe(){
+  // Je récupère le left de mon pipe
+  var left = pipe.offsetLeft;
+
+  // Et je l'incrémente de 10 vers la gauche
+  pipe.style.left = (left - 10) + 'px';
+
+  // Si left est inférieur à la largeur du pipe -> le pipe a disparu.
+  if (left < -pipeWidth) {
+
+    // je remet pipe au début de l'écran
+    pipe.style.left = 100 + '%';
+
+    // je reset la couleur des pipes en vert
+    pipeUp.style.backgroundColor = 'green';
+    pipeDown.style.backgroundColor = 'green';
+  }
+}
 
 //---------------------------------------
 // Lancement animations
@@ -141,6 +172,7 @@ function animateScene () {
   animateSprite();
   animateFly();
   touchPipe();
+  animatePipe();
 }
 
 setInterval(animateScene, 100);

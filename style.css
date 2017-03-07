@@ -19,10 +19,28 @@ position: relative;
   position: absolute;
 }*/
 
-#pipe{
+#pipe, #up, #down{
   /*background: green;*/
-  height: 100px;
-  width: 90px;
   position: absolute;
-  left: 600px;
+
+}
+#up, #down {
+  /*position: absolute;*/
+  /*background: green;*/
+  width: 90px;
+}
+#pipe {
+  /*background: purple;*/
+  left: 45%;
+  width: 90px;
+  /*height: 70%;*/
+}
+#up {
+  /*background: yellow;*/
+  /*height: 23%;*/
+}
+#down {
+  /*background: pink;*/
+  /*height: 35%;
+  top: 50%*/
 }

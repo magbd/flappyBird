@@ -78,18 +78,56 @@ function animateFly () {
 //---------------------------------------
 
 var pipe = document.getElementById('pipe');
+var pipeUp = document.getElementById('up');
+var pipeDown = document.getElementById('down');
+// var pipeWidth = pipe.offsetWidth;
+// alert ('pipeWidth vaut : ' + pipeWidth);
 
+function heightPipe(){
+  //Pourcentage de mon élément qui fera obstacle
+  var obstacle = 70;
+  // Je divise obstacle en 3 pour répartir 1/3 d'obstacle en haut et 1/3 d'obstacle en bas.
+  var blockObstacle = obstacle / 3;
+  // Pour le troisième 1/3 -> je veux un random entre 0 et son total.
+  var random = Math.floor( Math.random() * blockObstacle );
+  // Ce random je l'ajoute au 1/3 du haut.
+  var upObstacle = blockObstacle + random; // 1/3 + random
+  // Ce qui reste du troisième 1/3 je l'ajoute au 1/3 du bas.
+  var downObstacle = blockObstacle + (blockObstacle - random); // 1/3 + (1/3 - random)
+
+  pipeUp.style.height = upObstacle + '%';
+  pipeDown.style.height = downObstacle + '%';
+  pipe.style.height = '100%'; // 100% de la fenêtre pour le container pipe
+  // alert('up vaut : ' + up.style.height + ' et down vaut : ' + down.style.height);
+
+  pipeDown.style.bottom = '0px'; // fixe down en bas
+  // alert('top e ddown = ' + down.offsetTop);
+}
+heightPipe();
+
+pipeUp.style.backgroundColor = 'green';
+pipeDown.style.backgroundColor = 'green';
+
+// check si bird touche pipe et passe pipe.style.backgroundColor de vert à rouge
 function touchPipe(){
 
-  var positionPipe = pipe.offsetTop + pipe.offsetHeight;
-  var positionBird = flappybird.offsetTop;
+  // récupère ttes les positions de pipe
+  var positionPipeUp = pipeUp.offsetHeight;
+  var positionPipeDown = pipeDown.offsetTop;
 
 
-  if (positionBird < positionPipe){
-    pipe.style.backgroundColor = 'red';
+
+  //récupère ttes les positions de bird
+  var positionBirdUp = flappybird.offsetTop;
+  var positionBirdDown = flappybird.offsetHeight + flappybird.offsetTop;
+
+if (positionBirdDown > positionPipeDown) {
+    pipeDown.style.backgroundColor = 'red';
   }
-  else {
-    pipe.style.backgroundColor = 'green';
+
+
+  if (positionBirdUp < positionPipeUp){
+    pipeUp.style.backgroundColor = 'red';
   }
 
 }

@@ -11,6 +11,11 @@ body {
   z-index: 9;
 }
 
+#lifes img {
+  width: 30px;
+  margin: 0 5px;
+}
+
 #flappybird {
   width: 92px;
   overflow: hidden;

@@ -136,15 +136,15 @@ function touchPipe(){
     if (positionBirdDown > positionPipeDown && pipeDown.style.backgroundColor != 'red') {
       pipeDown.style.backgroundColor = 'red';
 
-       lifes --; // décrémente de 1 les points de vie
-       affLifes(); // affiche le compteur de points de vie à jour
+      lifes --; // décrémente de 1 les points de vie
+      perdu(); // affiche le compteur de points de vie à jour
     }
 
     if (positionBirdUp < positionPipeUp && pipeUp.style.backgroundColor != 'red' ){
       pipeUp.style.backgroundColor = 'red';
 
-       lifes --; // décrémente de 1 les points de vie
-       affLifes(); // affiche le compteur de points de vie à jour
+      lifes --; // décrémente de 1 les points de vie
+      perdu(); // affiche le compteur de points de vie à jour
     }
   }
   affLifes();
@@ -180,17 +180,36 @@ function animatePipe(){
 //Lifes
 //---------------------------------------
 
-var lifes = 3;
 var affCompteurLifes = document.getElementById('lifes');
+var compteur = 0;
+
+var tableau = ['heart_full.svg', 'heart_full.svg', 'heart_full.svg'];
+var heart_empty = 'heart_empty.svg';
+var heart ="";
 
 // lancement et modification des valeurs dans function touchPipe()
 function affLifes(){
-  // touchPipe();
-affCompteurLifes.innerHTML = lifes;
+  var heart ="";
+  for (var i = 0; i < tableau.length; i++) {
+    heart +=  '<img src=img/' + tableau[i] + '>';
+    affCompteurLifes.innerHTML = heart;
+  }
+}
 
-// if (lifes == 0) {
-//   alert('game over !');
-// }
+function compteurVies(){
+  tableau.splice(compteur, 1, heart_empty);
+  affLifes();
+  compteur ++;
+}
+
+function perdu(){
+  if (compteur < 2) {
+    compteurVies();
+  }
+  else {
+    compteurVies();
+    alert('game over');
+  }
 }
 
 //---------------------------------------
@@ -201,7 +220,6 @@ function animateScene () {
   animateSprite();
   animateFly();
   touchPipe();
-  // affLifes();
   animatePipe();
 }
 

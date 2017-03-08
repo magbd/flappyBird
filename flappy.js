@@ -5,7 +5,7 @@ var sprite = document.getElementById('sprite');
 
 var spriteStepWidth = 92; // La largeur d'une vignette d'animation
 var totalSpriteStep = 2; // Le nombre de vignette - 1
-var compteurSpriteStep = 0; // La vignette sur laquelle je commencewindow.
+var compteurSpriteStep = 0; // La vignette sur laquelle je commence
 var up = false; //l'oiseau commence par tomber
 
 
@@ -77,13 +77,15 @@ function animateFly () {
 //Pipes
 //---------------------------------------
 
-var pipe = document.getElementById('pipe');
-var pipeUp = document.getElementById('up');
-var pipeDown = document.getElementById('down');
+// var pipe = document.getElementById('pipe');
+// var pipes = document.getElementById('pipes');
+// var pipe = pipes.children;
+var pipe = document.getElementsByClassName('pipe');
+// var pipeUp = document.getElementById('up');
+var pipeUp = document.getElementsByClassName('up');
+// var pipeDown = document.getElementById('down');
+var pipeDown = document.getElementsByClassName('down');
 var pipeWidth = pipe.offsetWidth;
-// alert ('pipeWidth vaut : ' + pipeWidth);
-
-// var touch = false;
 
 
 function heightPipe(){

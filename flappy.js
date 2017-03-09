@@ -80,7 +80,7 @@ function animateFly () {
 // var pipe = document.getElementById('pipe');
 // var pipes = document.getElementById('pipes');
 // var pipe = pipes.children;
-var pipe = document.getElementsByClassName('pipe');
+var pipe = document.getElementsByClassName('pipe'); //taleau de tous les éléments HTML de classe "pipe"
 // var pipeUp = document.getElementById('up');
 var pipeUp = document.getElementsByClassName('up');
 // var pipeDown = document.getElementById('down');

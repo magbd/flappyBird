@@ -7,6 +7,9 @@ var spriteStepWidth = 92; // La largeur d'une vignette d'animation
 var totalSpriteStep = 2; // Le nombre de vignette - 1
 var compteurSpriteStep = 0; // La vignette sur laquelle je commencewindow.
 var up = false; //l'oiseau commence par tomber
+var scoreF = 0;
+var difficulte = 10;
+intervallPasse=false;
 // var montab;
 
 //---------------------------------------
@@ -101,7 +104,6 @@ function heightPipe(){
 }
 
 
-
 // fonction qui définit les propriété style à chaque enfant du tableau pipe => up et down
 function createPipe(){
   for (var i = 0; i < pipe.length; i++) {
@@ -111,7 +113,6 @@ function createPipe(){
 
     pipe[i].children[1].style.height = taille[1] + '%'; // => down
     pipe[i].children[1].style.backgroundColor = 'green'; // => down
-    // touchPipe(taille[0], taille[1]);
   }
 }
 createPipe();
@@ -138,6 +139,7 @@ function touchPipe(){
     //ET
     //que la gauche de bird est plus petit que la droite de pipe => n'a pas encore dépassé
     if (positionBirdRight > left && positionBirdLeft < right) {
+
       //je vérifie si je touche en haut ou en bas
       // si le pipe est déjà rouge donc touché, on ne décrémente pas de points de vie
       if (positionBirdDown > positionPipeDown && pipe[i].children[1].style.backgroundColor != 'red') {
@@ -147,12 +149,18 @@ function touchPipe(){
         perdu(); // affiche le compteur de points de vie à jour
       }
 
-      if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundColor != 'red' ){
+      else if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundColor != 'red' ){
         pipe[i].children[0].style.backgroundColor = 'red';
 
         lifes --; // décrémente de 1 les points de vie
         perdu(); // affiche le compteur de points de vie à jour
       }
+
+      // sinon j'ajoute 10 au compteurScore
+      // else {
+      //   compteurScore += 10;
+      //   affCompteurScore.innerHTML = compteurScore;
+      // }
     }
     // affLifes();
   }
@@ -170,7 +178,7 @@ function animatePipe(){
     var left = pipe[i].offsetLeft;
 
     // Et je l'incrémente de 10 vers la gauche
-    pipe[i].style.left = (left - 10) + 'px';
+    pipe[i].style.left = (left - difficulte) + 'px';
 
     // je vérifie si bird entre en collision
     touchPipe();
@@ -188,6 +196,10 @@ function animatePipe(){
       pipe[i].children[1].style.backgroundColor = 'green';
     }
   }
+  // le score augmente et fait monter la difficulte
+  scoreF+=1;
+  affCompteurScore.innerHTML = scoreF;
+  difficulte = 10 + scoreF/10;
 }
 
 //---------------------------------------
@@ -204,6 +216,7 @@ var heart ="";
 // lancement et modification des valeurs dans function touchPipe()
 function affLifes(){
   var heart ="";
+
   for (var i = 0; i < tableau.length; i++) {
     heart +=  '<img src=img/' + tableau[i] + '>';
     affCompteurLifes.innerHTML = heart;
@@ -225,6 +238,14 @@ function perdu(){
     alert('game over');
   }
 }
+
+//---------------------------------------
+//Score
+//---------------------------------------
+
+var affCompteurScore = document.getElementById('score');
+var compteurScore = 0;
+affCompteurScore.innerHTML = scoreF;
 
 //---------------------------------------
 // Lancement animations

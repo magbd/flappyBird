@@ -28,32 +28,45 @@ body {
 position: relative;
 }
 
-/*pipes.div {
-  position: absolute;
-}*/
 
-#pipe, #up, #down{
-  /*background: green;*/
+.pipe, .up, .down {
   position: absolute;
+}
+
+.up, .down {
+  width: 90%;
+  /*background-color: green;*/
+  position: absolute;
+}
+.up {
+  top: 0;
+  /*height: 20%;*/
+}
+.down {
+  bottom: 0;
+  /*height: 20%;*/
+}
+
+.pipe {
+  /*left: 45%;*/
+  width: 90px;
+  height: 100%;
 
 }
-#up, #down {
-  /*position: absolute;*/
-  /*background: green;*/
-  width: 90px;
+
+/* J'écarte par défaut chaque pipe les uns des autres */
+.pipe:nth-child(1) {
+  left: 15%;
 }
-#pipe {
-  /*background: purple;*/
-  left: 45%;
-  width: 90px;
-  /*height: 70%;*/
+
+.pipe:nth-child(2) {
+  left: 40%;
 }
-#up {
-  /*background: yellow;*/
-  /*height: 23%;*/
+
+.pipe:nth-child(3) {
+  left: 65%;
 }
-#down {
-  /*background: pink;*/
-  /*height: 35%;
-  top: 50%*/
+
+.pipe:nth-child(4) {
+  left: 90%;
 }

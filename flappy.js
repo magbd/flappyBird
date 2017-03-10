@@ -181,7 +181,7 @@ function animatePipe(){
     // si oiseau au niveau du pipe
     //je verifie si il touche
     //////////////////////////////////////////////////////////////////////////////
-    
+
     //récupère ttes les positions de bird
     var positionBirdUp = flappybird.offsetTop;
     var positionBirdDown = flappybird.offsetHeight + flappybird.offsetTop;
@@ -200,15 +200,15 @@ function animatePipe(){
       if (positionBirdDown > positionPipeDown && pipe[i].children[1].style.backgroundColor != 'red') {
         pipe[i].children[1].style.backgroundColor = 'red';
 
-        // lifes --; // décrémente de 1 les points de vie
-        // perdu(); // affiche le compteur de points de vie à jour
+        lifes --; // décrémente de 1 les points de vie
+        perdu(); // affiche le compteur de points de vie à jour
       }
 
       if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundColor != 'red' ){
         pipe[i].children[0].style.backgroundColor = 'red';
 
-        // lifes --; // décrémente de 1 les points de vie
-        // perdu(); // affiche le compteur de points de vie à jour
+        lifes --; // décrémente de 1 les points de vie
+        perdu(); // affiche le compteur de points de vie à jour
       }
     }
     //////////////////////////////////////////////////////////////////////////////
@@ -241,29 +241,29 @@ var heart_empty = 'heart_empty.svg';
 var heart ="";
 
 // lancement et modification des valeurs dans function touchPipe()
-// function affLifes(){
-//   var heart ="";
-//   for (var i = 0; i < tableau.length; i++) {
-//     heart +=  '<img src=img/' + tableau[i] + '>';
-//     affCompteurLifes.innerHTML = heart;
-//   }
-// }
-//
-// function compteurVies(){
-//   tableau.splice(compteur, 1, heart_empty);
-//   affLifes();
-//   compteur ++;
-// }
-//
-// function perdu(){
-//   if (compteur < 2) {
-//     compteurVies();
-//   }
-//   else {
-//     compteurVies();
-//     alert('game over');
-//   }
-// }
+function affLifes(){
+  var heart ="";
+  for (var i = 0; i < tableau.length; i++) {
+    heart +=  '<img src=img/' + tableau[i] + '>';
+    affCompteurLifes.innerHTML = heart;
+  }
+}
+
+function compteurVies(){
+  tableau.splice(compteur, 1, heart_empty);
+  affLifes();
+  compteur ++;
+}
+
+function perdu(){
+  if (compteur < 2) {
+    compteurVies();
+  }
+  else {
+    compteurVies();
+    alert('game over');
+  }
+}
 
 //---------------------------------------
 // Lancement animations
@@ -276,5 +276,5 @@ function animateScene () {
   // touchPipe();
   animatePipe();
 }
-
+affLifes();
 setInterval(animateScene, 100);

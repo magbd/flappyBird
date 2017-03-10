@@ -7,7 +7,7 @@ var spriteStepWidth = 92; // La largeur d'une vignette d'animation
 var totalSpriteStep = 2; // Le nombre de vignette - 1
 var compteurSpriteStep = 0; // La vignette sur laquelle je commencewindow.
 var up = false; //l'oiseau commence par tomber
-
+// var montab;
 
 //---------------------------------------
 // Animation Bird
@@ -66,10 +66,12 @@ function animateFly () {
   // Si je suis en train d'appuyer sur espace, up == true et donc birdy monte. (-20 => je me rapproche du top)
   if (up == true) {
     flappybird.style.top = (fall - 20) + 'px';
+    // touchPipe(montab[0], montab[1]); // vérifie si bird touche pipe
   }
   // Sinon, up == false et donc birdy tombe. (+12 => je m'éloigne du top)
   else {
     flappybird.style.top = (fall + 12) + 'px';
+    // touchPipe(montab[0], montab[1]); // vérifie si bird touche pipe
   }
 }
 
@@ -98,20 +100,23 @@ function heightPipe(){
   return [upObstacle, downObstacle];
 }
 
+
+
 // fonction qui définit les propriété style à chaque enfant du tableau pipe => up et down
 function createPipe(){
   for (var i = 0; i < pipe.length; i++) {
-    var taille = heightPipe(); // j'applique la fonction qui définit height à chaque pipe (enfants de id = pipes)
+    var taille = heightPipe(); // j'applique la fonction qui définit height à chaque pipe (enfants de id = pipes) => valeurs stockées dans un tableau
     pipe[i].children[0].style.height = taille[0] + '%'; // => up
     pipe[i].children[0].style.backgroundColor = 'green'; // => up
 
     pipe[i].children[1].style.height = taille[1] + '%'; // => down
     pipe[i].children[1].style.backgroundColor = 'green'; // => down
+    // touchPipe(taille[0], taille[1]);
   }
 }
 createPipe();
 
-// check si bird touche pipe et passe pipe.style.backgroundColor de vert à rouge
+// // check si bird touche pipe et passe pipe.style.backgroundColor de vert à rouge
 // function touchPipe(){
 //
 //   // récupère ttes les positions de pipe
@@ -160,10 +165,54 @@ function animatePipe(){
   for (var i = 0; i < pipe.length; i++) {
     // Je récupère le left de mon pipe
     var left = pipe[i].offsetLeft;
+    var right = pipe[i].offsetLeft + pipeWidth;
+    var positionPipeUp = pipe[i].children[0].offsetHeight;
+    var positionPipeDown = pipe[i].children[1].offsetTop;
+
     // alert(left);
+    // alert(right);
+    // alert(positionPipeUp);
+    // alert(positionPipeDown);
 
     // Et je l'incrémente de 10 vers la gauche
     pipe[i].style.left = (left - 10) + 'px';
+
+    //////////////////////////////////////////////////////////////////////////////
+    // si oiseau au niveau du pipe
+    //je verifie si il touche
+    //////////////////////////////////////////////////////////////////////////////
+    
+    //récupère ttes les positions de bird
+    var positionBirdUp = flappybird.offsetTop;
+    var positionBirdDown = flappybird.offsetHeight + flappybird.offsetTop;
+    var positionBirdRight = flappybird.offsetLeft + flappybird.offsetWidth;
+    var positionBirdLeft = flappybird.offsetLeft;
+
+
+
+    //si sur l'axe horizontal,
+    //la droite de bird dépasse la gauche de pipe => arrive à la rencontre de pipe
+    //ET
+    //que la gauche de bird est plus petit que la droite de pipe => n'a pas encore dépassé
+    if (positionBirdRight > left && positionBirdLeft < right) {
+      //je vérifie si je touche en haut ou en bas
+      // si le pipe est déjà rouge donc touché, on ne décrémente pas de points de vie
+      if (positionBirdDown > positionPipeDown && pipe[i].children[1].style.backgroundColor != 'red') {
+        pipe[i].children[1].style.backgroundColor = 'red';
+
+        // lifes --; // décrémente de 1 les points de vie
+        // perdu(); // affiche le compteur de points de vie à jour
+      }
+
+      if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundColor != 'red' ){
+        pipe[i].children[0].style.backgroundColor = 'red';
+
+        // lifes --; // décrémente de 1 les points de vie
+        // perdu(); // affiche le compteur de points de vie à jour
+      }
+    }
+    //////////////////////////////////////////////////////////////////////////////
+
 
     // Si left est inférieur à la largeur du pipe -> le pipe a disparu.
     if (left < -pipeWidth) {
@@ -171,9 +220,11 @@ function animatePipe(){
       // je remet pipe au début de l'écran
       pipe[i].style.left = 100 + '%';
 
-      // // je reset la couleur des pipes en vert
-      // pipeUp.style.backgroundColor = 'green';
-      // pipeDown.style.backgroundColor = 'green';
+      //REMETTRE UN RANDOM HEIGHT SUR LE NOUVEAU PIPE
+
+      // je reset la couleur des enfants up et down en vert
+      pipe[i].children[0].style.backgroundColor = 'green';
+      pipe[i].children[1].style.backgroundColor = 'green';
     }
   }
 }
@@ -221,6 +272,7 @@ var heart ="";
 function animateScene () {
   animateSprite();
   animateFly();
+  // createPipe();
   // touchPipe();
   animatePipe();
 }

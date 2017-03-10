@@ -116,79 +116,22 @@ function createPipe(){
 }
 createPipe();
 
-// // check si bird touche pipe et passe pipe.style.backgroundColor de vert à rouge
-// function touchPipe(){
-//
-//   // récupère ttes les positions de pipe
-//   var positionPipeUp = pipeUp.offsetHeight;
-//   var positionPipeDown = pipeDown.offsetTop;
-//   var positionPipeRight = pipe.offsetLeft + pipe.offsetWidth;
-//   var positionPipeLeft = pipe.offsetLeft;
-//
-//   //récupère ttes les positions de bird
-//   var positionBirdUp = flappybird.offsetTop;
-//   var positionBirdDown = flappybird.offsetHeight + flappybird.offsetTop;
-//   var positionBirdRight = flappybird.offsetLeft + flappybird.offsetWidth;
-//   var positionBirdLeft = flappybird.offsetLeft;
-//
-//   //si sur l'axe horizontal,
-//   //la droite de bird dépasse la gauche de pipe => arrive à la rencontre de pipe
-//   //ET
-//   //que la gauche de bird est plus petit que la droite de pipe => n'a pas encore dépassé
-//   if (positionBirdRight > positionPipeLeft && positionBirdLeft < positionPipeRight) {
-//     //je vérifie si je touche en haut ou en bas
-//     // si le pipe est déjà rouge donc touché, on ne décrémente pas de points de vie
-//     if (positionBirdDown > positionPipeDown && pipeDown.style.backgroundColor != 'red') {
-//       pipeDown.style.backgroundColor = 'red';
-//
-//       // lifes --; // décrémente de 1 les points de vie
-//       // perdu(); // affiche le compteur de points de vie à jour
-//     }
-//
-//     if (positionBirdUp < positionPipeUp && pipeUp.style.backgroundColor != 'red' ){
-//       pipeUp.style.backgroundColor = 'red';
-//
-//       // lifes --; // décrémente de 1 les points de vie
-//       // perdu(); // affiche le compteur de points de vie à jour
-//     }
-//   }
-//   // affLifes();
-//
-// }
+// check si bird touche pipe et passe pipe.style.backgroundColor de vert à rouge
+function touchPipe(){
 
-
-//---------------------------------------
-//Animation Pipes
-//---------------------------------------
-
-function animatePipe(){
   for (var i = 0; i < pipe.length; i++) {
-    // Je récupère le left de mon pipe
+
+    // récupère ttes les positions de pipe
     var left = pipe[i].offsetLeft;
     var right = pipe[i].offsetLeft + pipeWidth;
     var positionPipeUp = pipe[i].children[0].offsetHeight;
     var positionPipeDown = pipe[i].children[1].offsetTop;
-
-    // alert(left);
-    // alert(right);
-    // alert(positionPipeUp);
-    // alert(positionPipeDown);
-
-    // Et je l'incrémente de 10 vers la gauche
-    pipe[i].style.left = (left - 10) + 'px';
-
-    //////////////////////////////////////////////////////////////////////////////
-    // si oiseau au niveau du pipe
-    //je verifie si il touche
-    //////////////////////////////////////////////////////////////////////////////
 
     //récupère ttes les positions de bird
     var positionBirdUp = flappybird.offsetTop;
     var positionBirdDown = flappybird.offsetHeight + flappybird.offsetTop;
     var positionBirdRight = flappybird.offsetLeft + flappybird.offsetWidth;
     var positionBirdLeft = flappybird.offsetLeft;
-
-
 
     //si sur l'axe horizontal,
     //la droite de bird dépasse la gauche de pipe => arrive à la rencontre de pipe
@@ -211,8 +154,26 @@ function animatePipe(){
         perdu(); // affiche le compteur de points de vie à jour
       }
     }
-    //////////////////////////////////////////////////////////////////////////////
+    // affLifes();
+  }
 
+}
+
+
+//---------------------------------------
+//Animation Pipes
+//---------------------------------------
+
+function animatePipe(){
+  for (var i = 0; i < pipe.length; i++) {
+    // Je récupère le left de mon pipe
+    var left = pipe[i].offsetLeft;
+
+    // Et je l'incrémente de 10 vers la gauche
+    pipe[i].style.left = (left - 10) + 'px';
+
+    // je vérifie si bird entre en collision
+    touchPipe();
 
     // Si left est inférieur à la largeur du pipe -> le pipe a disparu.
     if (left < -pipeWidth) {

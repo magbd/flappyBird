@@ -1,0 +1,10 @@
+Fonts used in this design;
+
+Font: Lato, 
+Author: tyPoland Lukasz Dziedzic, 
+Url: http://www.fontsquirrel.com/fonts/lato; 
+
+Font: Molot, 
+Author: Roman Yershov, 
+Url: http://www.fontsquirrel.com/fonts/Molot; 
+

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Flappy Bird</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Jaldi:700" rel="stylesheet">
 </head>
 
 <body>
@@ -42,6 +43,20 @@
   <div id="sprite">
     <img src="img/bird.png">
   </div>
+</div>
+
+<!-- Modal Game Over -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p class="gameOver">Game Over</p>
+    <div id="lifesGameOver"></div>
+    <div id="scoreGameOver"></div>
+    <span id="close">Rejouer</span>
+    <!-- <p>Some text in the Modal..</p> -->
+  </div>
+
 </div>
 
 <script type="text/javascript" src="flappy.js"></script>

@@ -7,10 +7,15 @@ var spriteStepWidth = 92; // La largeur d'une vignette d'animation
 var totalSpriteStep = 2; // Le nombre de vignette - 1
 var compteurSpriteStep = 0; // La vignette sur laquelle je commencewindow.
 var up = false; //l'oiseau commence par tomber
-var scoreF = 0;
+
+var pipes = document.getElementById('pipes');
+var pipe = pipes.children; // tableau de toutes les div class="pipe" dans id="pipes"
+var pipeWidth = pipe[0].offsetWidth; //largeur d'un pipe (=> tous identiques)
+
+var affCompteurScore = document.getElementById('score');
+var compteurScore = 0;
+affCompteurScore.innerHTML = compteurScore;
 var difficulte = 10;
-intervallPasse=false;
-// var montab;
 
 //---------------------------------------
 // Animation Bird
@@ -82,11 +87,6 @@ function animateFly () {
 //Pipes
 //---------------------------------------
 
-var pipes = document.getElementById('pipes');
-var pipe = pipes.children;
-
-var pipeWidth = pipe[0].offsetWidth; //largeur d'un pipe (=> tous identiques)
-
 // fonction qui définit la hauteur de upObstacle et downObstacle qui seront attribué à UP et DOWN dans la fonction createPipe()
 function heightPipe(){
   //Pourcentage de mon élément qui fera obstacle
@@ -155,16 +155,8 @@ function touchPipe(){
         lifes --; // décrémente de 1 les points de vie
         perdu(); // affiche le compteur de points de vie à jour
       }
-
-      // sinon j'ajoute 10 au compteurScore
-      // else {
-      //   compteurScore += 10;
-      //   affCompteurScore.innerHTML = compteurScore;
-      // }
     }
-    // affLifes();
   }
-
 }
 
 
@@ -189,7 +181,10 @@ function animatePipe(){
       // je remet pipe au début de l'écran
       pipe[i].style.left = 100 + '%';
 
-      //REMETTRE UN RANDOM HEIGHT SUR LE NOUVEAU PIPE
+      // je donne une nouvelle valeur à up et down du nouveau pipe
+      var taille = heightPipe();
+      pipe[i].children[0].style.height = taille[0] + '%'; // => up
+      pipe[i].children[1].style.height = taille[1] + '%'; // => down
 
       // je reset la couleur des enfants up et down en vert
       pipe[i].children[0].style.backgroundColor = 'green';
@@ -197,9 +192,9 @@ function animatePipe(){
     }
   }
   // le score augmente et fait monter la difficulte
-  scoreF+=1;
-  affCompteurScore.innerHTML = scoreF;
-  difficulte = 10 + scoreF/10;
+  compteurScore+=1;
+  affCompteurScore.innerHTML = compteurScore;
+  difficulte = 10 + compteurScore/10;
 }
 
 //---------------------------------------
@@ -235,17 +230,48 @@ function perdu(){
   }
   else {
     compteurVies();
-    alert('game over');
+    // alert(compteurScore);
+    modal.style.display = "block";
+    window.clearInterval(interval); //stop l'animation
   }
 }
 
 //---------------------------------------
-//Score
+//MODAL Game Over => restart
 //---------------------------------------
 
-var affCompteurScore = document.getElementById('score');
-var compteurScore = 0;
-affCompteurScore.innerHTML = scoreF;
+var modal = document.getElementById('myModal');
+// Element qui ferme la modal (déclenche fonction restart et ferme la modal)
+var close = document.getElementById("close");
+
+var scoreGameOver = document.getElementById('scoreGameOver');
+scoreGameOver.innerHTML = compteurScore;
+
+
+close.onclick = function() {
+  modal.style.display = "none";
+  restart();
+}
+
+function restart(){
+  //RESET VIES
+  compteur = 0;
+  tableau = ['heart_full.svg', 'heart_full.svg', 'heart_full.svg'];
+  affLifes();
+
+  //RESET SCORE ET DIFFICULTE
+  compteurScore = 0;
+  difficulte = 10;
+
+  //RESET JEU (pipes vert)
+  for (var i = 0; i < pipe.length; i++) {
+    pipe[i].children[0].style.backgroundColor = 'green';
+    pipe[i].children[1].style.backgroundColor = 'green';
+  }
+
+  // Relance l'ensemble des animations => déclenche fonction animateScene
+  interval = window.setInterval(animateScene, 100);
+}
 
 //---------------------------------------
 // Lancement animations
@@ -254,9 +280,7 @@ affCompteurScore.innerHTML = scoreF;
 function animateScene () {
   animateSprite();
   animateFly();
-  // createPipe();
-  // touchPipe();
   animatePipe();
 }
 affLifes();
-setInterval(animateScene, 100);
+var interval = window.setInterval(animateScene, 100);

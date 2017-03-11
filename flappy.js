@@ -109,13 +109,13 @@ function createPipe(){
   for (var i = 0; i < pipe.length; i++) {
     var taille = heightPipe(); // j'applique la fonction qui définit height à chaque pipe (enfants de id = pipes) => valeurs stockées dans un tableau
     pipe[i].children[0].style.height = taille[0] + '%'; // => up
-    pipe[i].children[0].style.backgroundColor = 'green'; // => up
+    pipe[i].children[0].style.backgroundImage = 'url("img/pipe.png")'; // => up
 
     pipe[i].children[1].style.height = taille[1] + '%'; // => down
-    pipe[i].children[1].style.backgroundColor = 'green'; // => down
+    pipe[i].children[1].style.backgroundImage = 'url("img/pipe.png")'; // => down
   }
 }
-createPipe();
+
 
 // check si bird touche pipe et passe pipe.style.backgroundColor de vert à rouge
 function touchPipe(){
@@ -142,15 +142,15 @@ function touchPipe(){
 
       //je vérifie si je touche en haut ou en bas
       // si le pipe est déjà rouge donc touché, on ne décrémente pas de points de vie
-      if (positionBirdDown > positionPipeDown && pipe[i].children[1].style.backgroundColor != 'red') {
-        pipe[i].children[1].style.backgroundColor = 'red';
+      if (positionBirdDown > positionPipeDown && pipe[i].children[1].style.backgroundImage != 'url("img/pipeTouch.png")') {
+        pipe[i].children[1].style.backgroundImage = 'url("img/pipeTouch.png")';
 
         lifes --; // décrémente de 1 les points de vie
         perdu(); // affiche le compteur de points de vie à jour
       }
 
-      else if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundColor != 'red' ){
-        pipe[i].children[0].style.backgroundColor = 'red';
+      else if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundImage != 'url("img/pipeTouch.png")' ){
+        pipe[i].children[0].style.backgroundImage = 'url("img/pipeTouch.png")';
 
         lifes --; // décrémente de 1 les points de vie
         perdu(); // affiche le compteur de points de vie à jour
@@ -163,8 +163,10 @@ function touchPipe(){
 //---------------------------------------
 //Animation Pipes
 //---------------------------------------
-
+  pipe[0].style.right = '0';
 function animatePipe(){
+
+
   for (var i = 0; i < pipe.length; i++) {
     // Je récupère le left de mon pipe
     var left = pipe[i].offsetLeft;
@@ -187,8 +189,8 @@ function animatePipe(){
       pipe[i].children[1].style.height = taille[1] + '%'; // => down
 
       // je reset la couleur des enfants up et down en vert
-      pipe[i].children[0].style.backgroundColor = 'green';
-      pipe[i].children[1].style.backgroundColor = 'green';
+      pipe[i].children[0].style.backgroundImage = 'url("img/pipe.png")';
+      pipe[i].children[1].style.backgroundImage = 'url("img/pipe.png")';
     }
   }
   // le score augmente et fait monter la difficulte
@@ -265,8 +267,8 @@ function restart(){
 
   //RESET JEU (pipes vert)
   for (var i = 0; i < pipe.length; i++) {
-    pipe[i].children[0].style.backgroundColor = 'green';
-    pipe[i].children[1].style.backgroundColor = 'green';
+    pipe[i].children[0].style.backgroundImage = 'url("img/pipe.png")';
+    pipe[i].children[1].style.backgroundImage = 'url("img/pipe.png")';
   }
 
   // Relance l'ensemble des animations => déclenche fonction animateScene
@@ -282,5 +284,6 @@ function animateScene () {
   animateFly();
   animatePipe();
 }
+createPipe();
 affLifes();
 var interval = window.setInterval(animateScene, 100);

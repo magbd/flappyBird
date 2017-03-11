@@ -12,10 +12,12 @@ body {
   height: 100%;
   background-image: url('img/flappy-bird-background-2.png');
   background-repeat: no-repeat;
+  background-size: cover;
   z-index: 0;
   position: fixed;
   /*top: 130px;*/
-  top: 20%;
+  /*top: 20%;*/
+  bottom: 10%;
 }
 
 .ground {

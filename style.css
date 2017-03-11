@@ -1,8 +1,31 @@
 body {
-  background-color: #6ccdca;
+  background-color: #70C5CE;
+  /*background-image: url('img/flappy-bird-background-2.png');
+  background-repeat: no-repeat;*/
   margin: 0 auto;
   overflow: hidden;
   font-family: 'Jaldi', sans-serif;
+}
+
+.sky {
+  width: 100%;
+  height: 100%;
+  background-image: url('img/flappy-bird-background-2.png');
+  background-repeat: no-repeat;
+  z-index: 0;
+  position: fixed;
+  /*top: 130px;*/
+  top: 20%;
+}
+
+.ground {
+  width: 100%;
+  height: 15%;
+  background-image: url('img/ground.png');
+  /*background-repeat: no-repeat;*/
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
 }
 
 #windowScore{
@@ -40,6 +63,7 @@ body {
 
 .pipe, .up, .down {
   position: absolute;
+  /*z-index: 2;*/
 }
 .pipe {
   width: 90px;

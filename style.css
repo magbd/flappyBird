@@ -1,10 +1,8 @@
 body {
   background-color: #70C5CE;
-  /*background-image: url('img/flappy-bird-background-2.png');
-  background-repeat: no-repeat;*/
   margin: 0 auto;
   overflow: hidden;
-  font-family: 'Jaldi', sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .sky {
@@ -30,19 +28,28 @@ body {
 }
 
 #windowScore{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 2px solid #533846;
-  border-radius: 20px;
-  padding: 20px;
+  padding: 40px 20px 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#logo {
+  width: 10%;
+}
+#logo img {
+  width: 100%;
 }
 
 #score {
-  text-align: right;
+  width: 80%;
+  color: #4C3C46;
+  text-align: center;
   font-size: 1.5em;
+}
+
+#lifes {
+  width: 10%;
 }
 
 #lifes img {
@@ -77,7 +84,6 @@ body {
 }
 .up {
   top: 0;
-  /*background-image: url("img/pipe.png");*/
   transform: rotate(180deg);
 }
 .down {
@@ -106,6 +112,7 @@ body {
   display: none; /* Caché par défaut */
   position: fixed;
   z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
   /*left: 0;
   top: 0;*/
   width: 100%;
@@ -122,7 +129,6 @@ body {
   padding: 20px;
   width: 40%;
   text-align: center;
-  /*color: #533846;*/
 }
 
 .modal-content img {
@@ -134,22 +140,22 @@ body {
   font-size: 2.5em;
 }
 
-/* The Close Button */
 #replay {
   font-size: 2em;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px 5px;
+  color: #4C3C46;
+  /*background-color: rgba(255, 255, 255, 0.5);*/
+  /*padding: 10px 5px;
   border: solid 2px #533846;
   border-radius: 20px;
-  width: 30%;
+  width: 30%;*/
   margin-top: 20px;
 }
 
 #replay:hover,
 #replay:focus {
-  color: #888;
+  color: #676064;
   text-decoration: none;
   cursor: pointer;
 }

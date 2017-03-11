@@ -18,6 +18,7 @@ affCompteurScore.innerHTML = compteurScore;
 var difficulte = 10;
 
 var audioPlayer = document.getElementById('audioPlayer');
+var audioPlayerFly = document.getElementById('audioPlayerFly');
 
 
 //---------------------------------------
@@ -31,7 +32,7 @@ function animateSprite() {
   // alert(position);
 
   // Modifie le style css left => permet le changement de position de sprite (l'image)
-  // Je met le left de mon élément à : (-0 * 92) + 'px' -> 0px puis 92, puis 184
+  // Je met le left de mon élément à : (-0 * 92) + 'px' -> 0px puis 92px, puis 184px
   // On voit donc la 1ere vignette puis la 2eme et enfin la 3eme.
   sprite.style.left= '-' + compteurSpriteStep * spriteStepWidth + 'px';
 
@@ -77,13 +78,11 @@ function animateFly () {
   // Si je suis en train d'appuyer sur espace, up == true et donc birdy monte. (-20 => je me rapproche du top)
   if (up == true) {
     flappybird.style.top = (fall - 20) + 'px';
-    // audioPlayer.src = "audio/sfx_wing.wav";
-    audioPlayer.src = "audio/sfx_swooshing.wav";
+    audioPlayerFly.src = "audio/sfx_swooshing.wav";
   }
   // Sinon, up == false et donc birdy tombe. (+12 => je m'éloigne du top)
   else {
     flappybird.style.top = (fall + 12) + 'px';
-    // audioPlayer.src = "audio/sfx_swooshing.wav";
   }
 }
 
@@ -250,13 +249,9 @@ function perdu(){
 
 var modal = document.getElementById('myModal');
 // Element qui ferme la modal (déclenche fonction restart et ferme la modal)
-var close = document.getElementById("close");
+var replay = document.getElementById("replay");
 
-var scoreGameOver = document.getElementById('scoreGameOver');
-scoreGameOver.innerHTML = compteurScore;
-
-
-close.onclick = function() {
+replay.onclick = function() {
   modal.style.display = "none";
   restart();
 }

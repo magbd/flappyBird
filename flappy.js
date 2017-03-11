@@ -17,6 +17,9 @@ var compteurScore = 0;
 affCompteurScore.innerHTML = compteurScore;
 var difficulte = 10;
 
+var audioPlayer = document.getElementById('audioPlayer');
+
+
 //---------------------------------------
 // Animation Bird
 //---------------------------------------
@@ -74,12 +77,13 @@ function animateFly () {
   // Si je suis en train d'appuyer sur espace, up == true et donc birdy monte. (-20 => je me rapproche du top)
   if (up == true) {
     flappybird.style.top = (fall - 20) + 'px';
-    // touchPipe(montab[0], montab[1]); // vérifie si bird touche pipe
+    // audioPlayer.src = "audio/sfx_wing.wav";
+    audioPlayer.src = "audio/sfx_swooshing.wav";
   }
   // Sinon, up == false et donc birdy tombe. (+12 => je m'éloigne du top)
   else {
     flappybird.style.top = (fall + 12) + 'px';
-    // touchPipe(montab[0], montab[1]); // vérifie si bird touche pipe
+    // audioPlayer.src = "audio/sfx_swooshing.wav";
   }
 }
 
@@ -145,6 +149,7 @@ function touchPipe(){
       if (positionBirdDown > positionPipeDown && pipe[i].children[1].style.backgroundImage != 'url("img/pipeTouch.png")') {
         pipe[i].children[1].style.backgroundImage = 'url("img/pipeTouch.png")';
 
+        audioPlayer.src = "audio/sfx_hit.wav";
         lifes --; // décrémente de 1 les points de vie
         perdu(); // affiche le compteur de points de vie à jour
       }
@@ -152,6 +157,7 @@ function touchPipe(){
       else if (positionBirdUp < positionPipeUp && pipe[i].children[0].style.backgroundImage != 'url("img/pipeTouch.png")' ){
         pipe[i].children[0].style.backgroundImage = 'url("img/pipeTouch.png")';
 
+        audioPlayer.src = "audio/sfx_hit.wav";
         lifes --; // décrémente de 1 les points de vie
         perdu(); // affiche le compteur de points de vie à jour
       }
@@ -232,7 +238,7 @@ function perdu(){
   }
   else {
     compteurVies();
-    // alert(compteurScore);
+    audioPlayer.src = "audio/sfx_die.wav";
     modal.style.display = "block";
     window.clearInterval(interval); //stop l'animation
   }

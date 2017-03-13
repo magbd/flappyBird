@@ -138,13 +138,6 @@ function touchPipe(){
     var positionBirdLeft = flappybird.offsetLeft;
 
 
-    // if (compteurScore == 0){
-    //   // pipe[i].style.display = 'none';
-    //   // alert(left);
-    //   pipe[i].style.left = (left + 300) +'px';
-    // }
-
-
     //si sur l'axe horizontal,
     //la droite de bird dépasse la gauche de pipe => arrive à la rencontre de pipe
     //ET
@@ -179,14 +172,13 @@ function touchPipe(){
 
 function animatePipe(){
 
-
   for (var i = 0; i < pipe.length; i++) {
     // Je récupère le left de mon pipe
     var left = pipe[i].offsetLeft;
 
     // Au début les pipes sont hors champs
     if (compteurScore == 0){
-      pipe[i].style.left = (left + 1200) +'px';
+      pipe[i].style.left = (left + window.screen.width) +'px';
     }
     // Exécution de l'animation des pipes
     else {
@@ -212,8 +204,6 @@ function animatePipe(){
         pipe[i].children[1].style.backgroundImage = 'url("img/pipe.png")';
       }
     }
-
-
   }
   // le score augmente et fait monter la difficulte
   compteurScore+=1;

@@ -73,7 +73,7 @@ function animateFly () {
   var fall = flappybird.offsetTop;
   // console.log('fall = '+fall);
 
-  setEvents();
+  setEvents(); // récupère les events clavier
 
   // Si je suis en train d'appuyer sur espace, up == true et donc birdy monte. (-20 => je me rapproche du top)
   if (up == true) {
@@ -137,6 +137,14 @@ function touchPipe(){
     var positionBirdRight = flappybird.offsetLeft + flappybird.offsetWidth;
     var positionBirdLeft = flappybird.offsetLeft;
 
+
+    // if (compteurScore == 0){
+    //   // pipe[i].style.display = 'none';
+    //   // alert(left);
+    //   pipe[i].style.left = (left + 300) +'px';
+    // }
+
+
     //si sur l'axe horizontal,
     //la droite de bird dépasse la gauche de pipe => arrive à la rencontre de pipe
     //ET
@@ -168,7 +176,7 @@ function touchPipe(){
 //---------------------------------------
 //Animation Pipes
 //---------------------------------------
-  pipe[0].style.right = '0';
+
 function animatePipe(){
 
 
@@ -176,27 +184,36 @@ function animatePipe(){
     // Je récupère le left de mon pipe
     var left = pipe[i].offsetLeft;
 
-    // Et je l'incrémente de 10 vers la gauche
-    pipe[i].style.left = (left - difficulte) + 'px';
-
-    // je vérifie si bird entre en collision
-    touchPipe();
-
-    // Si left est inférieur à la largeur du pipe -> le pipe a disparu.
-    if (left < -pipeWidth) {
-
-      // je remet pipe au début de l'écran
-      pipe[i].style.left = 100 + '%';
-
-      // je donne une nouvelle valeur à up et down du nouveau pipe
-      var taille = heightPipe();
-      pipe[i].children[0].style.height = taille[0] + '%'; // => up
-      pipe[i].children[1].style.height = taille[1] + '%'; // => down
-
-      // je reset la couleur des enfants up et down en vert
-      pipe[i].children[0].style.backgroundImage = 'url("img/pipe.png")';
-      pipe[i].children[1].style.backgroundImage = 'url("img/pipe.png")';
+    // Au début les pipes sont hors champs
+    if (compteurScore == 0){
+      pipe[i].style.left = (left + 1200) +'px';
     }
+    // Exécution de l'animation des pipes
+    else {
+      // Et je l'incrémente de 10 vers la gauche
+      pipe[i].style.left = (left - difficulte) + 'px';
+
+      // je vérifie si bird entre en collision
+      touchPipe();
+
+      // Si left est inférieur à la largeur du pipe -> le pipe a disparu.
+      if (left < -pipeWidth) {
+
+        // je remet pipe au début de l'écran
+        pipe[i].style.left = 100 + '%';
+
+        // je donne une nouvelle valeur à up et down du nouveau pipe
+        var taille = heightPipe();
+        pipe[i].children[0].style.height = taille[0] + '%'; // => up
+        pipe[i].children[1].style.height = taille[1] + '%'; // => down
+
+        // je reset la couleur des enfants up et down en vert
+        pipe[i].children[0].style.backgroundImage = 'url("img/pipe.png")';
+        pipe[i].children[1].style.backgroundImage = 'url("img/pipe.png")';
+      }
+    }
+
+
   }
   // le score augmente et fait monter la difficulte
   compteurScore+=1;

@@ -5,6 +5,23 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
+#start {
+  position: absolute;
+  z-index: 3;
+  top: 20%;
+  width: 100%;
+  text-align: center;
+  color: #F5FEED;
+  text-transform: uppercase;
+  opacity: 1;
+
+}
+
+#start.fadeIn {
+  opacity: 0;
+  transition: 2s ease;
+}
+
 .sky {
   width: 100%;
   height: 100%;

@@ -170,6 +170,8 @@ function touchPipe(){
 //Animation Pipes
 //---------------------------------------
 
+var start = document.getElementById('start');
+
 function animatePipe(){
 
   for (var i = 0; i < pipe.length; i++) {
@@ -180,8 +182,13 @@ function animatePipe(){
     if (compteurScore == 0){
       pipe[i].style.left = (left + window.screen.width) +'px';
     }
+
     // Exécution de l'animation des pipes
     else {
+      if (compteurScore > 20) {
+        // start.style.display = "none";
+        start.classList.add('fadeIn');
+      }
       // Et je l'incrémente de 10 vers la gauche
       pipe[i].style.left = (left - difficulte) + 'px';
 
